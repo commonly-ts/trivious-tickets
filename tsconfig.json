@@ -1,0 +1,27 @@
+{
+	"compilerOptions": {
+		"target": "es2023",
+		"module": "nodenext",
+		"moduleResolution": "NodeNext",
+		"outDir": "dist",
+		"declaration": true,
+		"strict": true,
+		"skipLibCheck": true,
+		"esModuleInterop": true,
+		"resolveJsonModule": true,
+		"allowSyntheticDefaultImports": true,
+		"forceConsistentCasingInFileNames": true,
+		"sourceMap": true,
+		"experimentalDecorators": true,
+		"emitDecoratorMetadata": true,
+		"strictPropertyInitialization": false,
+		"baseUrl": ".",
+		"paths": {
+			"@typings": ["src/typings.ts"],
+			"@feature/*": ["src/features/*"]
+		},
+		"typeRoots": ["node_modules/@types", "src/shared/typings"]
+	},
+	"include": ["src", "vitest.config.ts", "tsup.config.ts", "eslint.config.mjs"],
+	"exclude": ["node_modules", "dist"]
+}
