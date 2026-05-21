@@ -18,7 +18,8 @@
 		"baseUrl": ".",
 		"paths": {
 			"@typings": ["src/typings.ts"],
-			"@feature/*": ["src/features/*"]
+			"@feature/*": ["src/features/*"],
+			"@src/*": ["src/*"]
 		},
 		"typeRoots": ["node_modules/@types", "src/shared/typings"]
 	},

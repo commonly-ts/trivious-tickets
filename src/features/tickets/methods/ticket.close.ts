@@ -1,12 +1,12 @@
 import TicketsClient from "@feature/client/main.client.js";
-import { TicketEntity } from "@feature/database/TicketEntity.js";
-import { TicketObject } from "@typings";
+import { TicketComponentFunction, TicketMethodReturn } from "@typings";
+import { ButtonInteraction } from "discord.js";
 
-export default async (
+const method = (async (
 	client: TicketsClient,
-	ticket: TicketObject
-): Promise<[success: boolean, reason: string]> => {
-	const repository = client.dataSource.getRepository(TicketEntity);
-
+	interactaiaon: ButtonInteraction
+): Promise<TicketMethodReturn> => {
 	return [true, "Closed ticket"];
-};
+}) as TicketComponentFunction;
+
+export default method;

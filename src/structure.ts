@@ -1,6 +1,6 @@
 import fs, { existsSync } from "fs";
 import { dirname, join, resolve } from "path";
-import { fileURLToPath } from "url";
+import { fileURLToPath, pathToFileURL } from "url";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
@@ -38,4 +38,26 @@ export function resolveRelativePath(relativePath: string): string {
 	}
 
 	return join(packageRoot, relativePath);
+}
+
+export async function importFile<T>(filePath: string): Promise<T | null> {
+	try {
+		const { default: file } = await import(pathToFileURL(filePath).href);
+		if (!file) return null;
+
+		const imports = file.default || file;
+
+		if (typeof imports === "function") {
+			return imports as T;
+		}
+
+		if (typeof imports == "object") {
+			if (Object.keys(imports).length === 0) return null;
+			return imports as T;
+		}
+
+		return null;
+	} catch {
+		return null;
+	}
 }

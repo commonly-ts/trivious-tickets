@@ -1,5 +1,6 @@
 import { Guild } from "discord.js";
 
+export * from "@feature/client/client.types.js";
 export * from "@feature/tickets/ticket.types.js";
 
 export interface GuildOptions {

@@ -1,5 +1,6 @@
+import TicketsClient from "@feature/client/main.client.js";
 import { GuildOptions } from "@typings";
-import { MessageCreateOptions, User } from "discord.js";
+import { ButtonInteraction, MessageCreateOptions, User } from "discord.js";
 
 export enum TicketOption {
 	Close,
@@ -92,3 +93,10 @@ export type OptionResult = [success: boolean, reason: string];
 export interface TicketCreationData {
 	user: User;
 }
+
+export type TicketComponentFunction = (
+	client: TicketsClient,
+	interaction: ButtonInteraction
+) => Promise<TicketMethodReturn>;
+
+export type TicketMethodReturn = OptionResult;
