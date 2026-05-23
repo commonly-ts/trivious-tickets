@@ -3,6 +3,7 @@ import {
 	TicketNameFormat,
 	TicketObject,
 	TicketObjectOptions,
+	TicketOnCloseBehaviour,
 	TicketOption,
 	TicketPermissions,
 } from "@typings";
@@ -53,8 +54,14 @@ export class TicketBuilder {
 		return this;
 	}
 
-	setOptions(builder: (builder: TicketOptionsBuilder) => TicketOptionsBuilder): this {
-		this._data.options = builder(new TicketOptionsBuilder()).data;
+	setOptions(
+		builder: ((builder: TicketOptionsBuilder) => TicketOptionsBuilder) | TicketOptionsBuilder
+	): this {
+		if (builder instanceof TicketOptionsBuilder) {
+			this._data.options = builder.data;
+		} else {
+			this._data.options = builder(new TicketOptionsBuilder()).data;
+		}
 		return this;
 	}
 
@@ -96,5 +103,15 @@ export class TicketBuilder {
 		if (!this._data.permissions) this._data.permissions = {};
 		this._data.permissions.roleIds = roleIds;
 		return this;
+	}
+
+	setOnCloseBehaviour(data: TicketOnCloseBehaviour): this {
+		if (!this._data.behaviour) this._data.behaviour = {};
+		this._data.behaviour.onClose = data;
+		return this;
+	}
+
+	toObject(): TicketObject {
+		return this._data as TicketObject;
 	}
 }

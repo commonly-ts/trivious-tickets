@@ -1,5 +1,5 @@
 import TicketsClient from "@feature/client/main.client.js";
-import { GuildOptions } from "@typings";
+import type { GuildOptions } from "@typings";
 import { ButtonInteraction, MessageCreateOptions, User } from "discord.js";
 
 export enum TicketOption {
@@ -16,11 +16,11 @@ export enum TicketStatus {
 	Deleted = "DELETED",
 }
 
+export type TicketStatusForOptions = Exclude<TicketStatus, TicketStatus.Deleted>;
 /**
  * Specify what options are available based on the ticket state
  */
 export type TicketObjectOptions = Record<TicketStatusForOptions, TicketOption[]>;
-export type TicketStatusForOptions = Exclude<TicketStatus, TicketStatus.Deleted>;
 
 /**
  * Permissions object for tickets
@@ -61,10 +61,15 @@ export interface TicketCategoryConfig {
 	closedCategoryId: string;
 }
 
-type TicketTypeName = "name";
-type CreatedByUsername = "username";
-type TicketId = "id";
-export type TicketNameFormat = (TicketTypeName | CreatedByUsername | TicketId)[];
+export interface TicketOnCloseBehaviour {
+	removeOpenedByUser?: boolean;
+}
+export interface TicketBehaviour {
+	onClose?: TicketOnCloseBehaviour;
+	onOpen?: unknown;
+}
+
+export type TicketNameFormat = ("name" | "username" | "id")[];
 export type TicketNameFormatParts = { [K in TicketNameFormat[number][][number]]: string };
 
 export type TicketHeaderMessage = Pick<MessageCreateOptions, "embeds">;
@@ -86,6 +91,7 @@ export interface TicketObject extends GuildOptions {
 	options: TicketObjectOptions;
 	categories: TicketCategoryConfig;
 	permissions?: TicketPermissions;
+	behaviour?: TicketBehaviour;
 }
 
 export type OptionResult = [success: boolean, reason: string];
