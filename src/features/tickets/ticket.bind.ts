@@ -1,6 +1,6 @@
 import TicketsClient from "@feature/client/main.client.js";
 import { importFile, resolveRelativePath } from "@src/structure.js";
-import { TicketComponentFunction } from "@typings";
+import type { TicketComponentFunction } from "@typings";
 import { Collection } from "discord.js";
 import { promises as fs } from "fs";
 import path from "path";
