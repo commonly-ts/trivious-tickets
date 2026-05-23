@@ -1,5 +1,5 @@
 import TicketsClient from "@feature/client/main.client.js";
-import { GuildOptions } from "@typings";
+import type { GuildOptions } from "@typings";
 import { TriviousClient } from "trivious";
 
 async function fetchGuildFromId(trivious: TriviousClient, guildId?: string) {
@@ -13,8 +13,8 @@ export async function resolveGuildOptions(
 	const option = options.findLast((opt) => opt?.guild || opt.guildId);
 
 	if (!option) {
-		if (client.options.guild) return client.options.guild;
-		if (client.options.guildId)
+		if (client.options?.guild) return client.options.guild;
+		if (client.options?.guildId)
 			return await fetchGuildFromId(client.trivious, client.options.guildId);
 		return null;
 	}
