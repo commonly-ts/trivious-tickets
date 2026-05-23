@@ -36,7 +36,9 @@
 		"typecheck": "tsc --noEmit",
 		"dev": "tsup --watch",
 		"release": "semantic-release",
-		"prepare": "npm run build"
+		"prepare": "npm run build",
+		"test": "vitest",
+		"coverage": "vitest run --coverage"
 	},
 	"devDependencies": {
 		"@eslint/js": "^9.39.1",
@@ -48,17 +50,21 @@
 		"@types/node": "^24.10.1",
 		"@typescript-eslint/eslint-plugin": "^8.57.0",
 		"@typescript-eslint/parser": "^8.57.0",
+		"@vitest/coverage-v8": "^4.1.7",
 		"dotenv": "^17.2.3",
 		"eslint": "^9.39.1",
 		"eslint-config-prettier": "^10.1.8",
 		"eslint-plugin-import": "^2.32.0",
 		"eslint-plugin-prettier": "^5.5.5",
+		"pg": "^8.21.0",
+		"pg-mem": "^3.0.14",
 		"prettier": "^3.6.2",
 		"semantic-release": "^25.0.2",
 		"tsc-alias": "^1.8.16",
 		"tsup": "^8.5.1",
 		"typescript": "^5.9.3",
-		"typescript-eslint": "^8.57.0"
+		"typescript-eslint": "^8.57.0",
+		"vitest": "^4.1.7"
 	},
 	"dependencies": {
 		"discord.js": "^14.26.4",

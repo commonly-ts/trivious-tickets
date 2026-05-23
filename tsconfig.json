@@ -21,8 +21,8 @@
 			"@feature/*": ["src/features/*"],
 			"@src/*": ["src/*"]
 		},
-		"typeRoots": ["node_modules/@types", "src/shared/typings"]
+		"typeRoots": ["node_modules/@types", "src/typings"]
 	},
-	"include": ["src", "vitest.config.ts", "tsup.config.ts", "eslint.config.mjs"],
+	"include": ["src", "vitest.config.ts", "tsup.config.ts", "eslint.config.mjs", "tests/**/*.ts"],
 	"exclude": ["node_modules", "dist"]
 }
