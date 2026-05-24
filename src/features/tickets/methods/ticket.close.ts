@@ -14,11 +14,16 @@ const method = (async (
 	if (!ticket) return [false, "Could not find ticket from channelId"];
 	if (ticket.status !== TicketStatus.Open)
 		return [false, "Cannot close an already closed or deleted ticket"];
+	const { metadata } = ticket;
 
-	const closedCategoryId = ticket.metadata.categories.closedCategoryId;
+	const closedCategoryId = metadata.categories.closedCategoryId;
 	await channel.edit({
 		parent: closedCategoryId,
-		permissionOverwrites: defaultChannelPermissions(guildId, ticket.openedById, true),
+		permissionOverwrites: defaultChannelPermissions(
+			guildId,
+			ticket.openedById,
+			!!metadata.behaviour?.onClose?.removeOpenedByUser
+		),
 	});
 
 	return [true, "Closed ticket"];

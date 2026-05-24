@@ -6,8 +6,8 @@ import { promises as fs } from "fs";
 import path from "path";
 import { Component, createButtonComponent } from "trivious";
 
-function getMethodFiles() {
-	const pattern = path.join(resolveRelativePath("features/tickets/methods"), "ticket.*.js");
+function getFiles(relativePath: string) {
+	const pattern = path.join(resolveRelativePath(relativePath), "ticket.*.js");
 	return fs.glob(pattern);
 }
 
@@ -18,7 +18,7 @@ function getName(dir: string) {
 }
 
 export async function bindButtons(client: TicketsClient) {
-	const files = getMethodFiles();
+	const files = getFiles("features/tickets/methods");
 	const components = new Collection<string, Component>();
 	for await (const file of files) {
 		const name = getName(file);
