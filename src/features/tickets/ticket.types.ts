@@ -58,7 +58,7 @@ export interface TicketCategoryConfig {
 	/**
 	 * Category channel ID where closed tickets go
 	 */
-	closedCategoryId: string;
+	closedCategoryId?: string;
 }
 
 export interface TicketOnCloseBehaviour {

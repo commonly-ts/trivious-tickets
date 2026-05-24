@@ -3,6 +3,7 @@ import TicketsClient from "@feature/client/main.client.js";
 import { TicketEntity } from "@feature/database/TicketEntity.js";
 import { TicketNameFormat, TicketNameFormatParts, TicketOption } from "@typings";
 import { OverwriteResolvable, OverwriteType, PermissionFlagsBits } from "discord.js";
+import { customId as customIdMethods } from "trivious";
 
 export const baseDefaultPermissionFlags = [
 	PermissionFlagsBits.ViewChannel,
@@ -30,6 +31,14 @@ export function defaultChannelPermissions(
 			deny: [PermissionFlagsBits.ViewChannel],
 		},
 	];
+}
+
+export async function getTicketByCustomId(client: TicketsClient, customId: string) {
+	const repository = client.getRepository(TicketEntity);
+	const { data } = customIdMethods.decode(customId);
+	if (!data) return null;
+	const id = Number(data);
+	return await repository.findOneBy({ id });
 }
 
 export async function getTicketByChannelId(client: TicketsClient, channelId: string) {

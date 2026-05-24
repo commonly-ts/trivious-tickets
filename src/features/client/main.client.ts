@@ -1,7 +1,9 @@
 // import ticketClose from "@feature/tickets/methods/ticket.close.js";
 // import ticketCreate from "@feature/tickets/methods/ticket.create.js";
+import { TicketBuilder } from "@feature/builders/ticket.object.js";
+import { default as ticketCreate } from "@feature/tickets/methods/_ticket.create.js";
 import { bindButtons as bindTicketButtons } from "@feature/tickets/ticket.bind.js";
-import type { TicketClientOptions, TicketObject } from "@typings";
+import type { TicketClientOptions, TicketCreationData, TicketObject } from "@typings";
 import { TriviousClient } from "trivious";
 import { DataSource, EntityTarget, ObjectLiteral, Repository } from "typeorm";
 
@@ -26,10 +28,11 @@ export default class TicketsClient {
 	// 	return ticketClose(this, ticket.metadata);
 	// }
 
-	// async create(ticket: TicketObject, data: TicketCreationData) {
-	// 	if (!this.objects.has(ticket.name)) this.objects.set(ticket.name, ticket);
-	// 	return ticketCreate(this, ticket, data);
-	// }
+	async create(ticket: TicketObject | TicketBuilder, data: TicketCreationData) {
+		if (ticket instanceof TicketBuilder) ticket = ticket.toObject();
+		if (!this.objects.has(ticket.name)) this.objects.set(ticket.name, ticket);
+		return ticketCreate(this, ticket, data);
+	}
 
 	// get entities() {
 	// 	return this._entities;
