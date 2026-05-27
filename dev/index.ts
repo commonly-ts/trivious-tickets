@@ -7,7 +7,7 @@ import { TriviousClient } from "trivious";
 
 const appDataSource = TestDataSource;
 const client = new TriviousClient({
-	corePath: "tests/bot",
+	corePath: "dev",
 	intents: [],
 	credentials: {
 		clientIdReference: "CLIENT_ID",
